@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🧪 Software-Testing-Portfolio: Wetter-App
 
-## Getting Started
+Dieses Projekt ist eine umfassende Demonstration von Fähigkeiten im Software-Testing und in der Qualitätssicherung (QA).  
+Es umfasst eine voll funktionsfähige Wetter-App, die mit **Next.js** und **Tailwind CSS** erstellt wurde, und eine vollständige Test-Suite, die verschiedene Testkategorien abdeckt.
 
-First, run the development server:
+Das Ziel dieses Projekts ist es, einen systematischen Ansatz für das Testen einer Webanwendung zu demonstrieren.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Technologien
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Next.js** – Das React-Framework für die App
+- **Tailwind CSS** – Für schnelles und modernes Styling
+- **Cypress** – Primäres End-to-End (E2E) und Integration Testing Framework
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧪 Teststrategie
 
-To learn more about Next.js, take a look at the following resources:
+Die Testfälle sind in verschiedene Kategorien unterteilt:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Unit Tests (Logik-Tests)** – Korrekte Verarbeitung von API-Daten und Fehlerbehandlung in der Logik
+- **Integrationstests** – Zusammenspiel von UI-Komponenten und Logik mit simulierten API-Antworten
+- **End-to-End (E2E) Tests** – Nutzerverhalten simulieren und End-to-End-Fluss überprüfen
+- **Edge Case Tests** – Robustheit bei extremen Eingaben prüfen
+- **Performance- und Lasttests** – Geschwindigkeit und Stabilität unter Last messen
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📑 Inhaltsverzeichnis
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Unit Tests (Logik-Tests)](#unit-tests-logik-tests)
+- [Integrationstests (IT)](#integrationstests-it)
+- [End-to-End (E2E) Tests](#end-to-end-e2e-tests-cypress)
+- [Edge Case Tests](#edge-case-tests-ec)
+- [Performance- und Lasttests](#performance--und-lasttests-pt)
+- [Installation & Setup](#️-installation-und-start)
+- [Tests ausführen](#-tests-ausführen)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Unit Tests (Logik-Tests)
+
+| Test Case-ID | Testbeschreibung                                                                             | Erwartetes Ergebnis                                                                                                                        |
+| ------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **UT-01**    | **Gültiger API-Aufruf:** Funktion `getWeatherData` mit einer gültigen Stadt aufrufen.        | Die Funktion sollte die API erfolgreich aufrufen, die Wetterdaten zurückgeben und den State (`weatherData`) korrekt aktualisieren.         |
+| **UT-02**    | **Fehlerbehandlung:** Funktion `getWeatherData` mit einer ungültigen Stadt aufrufen.         | Die Funktion sollte den Fehler korrekt behandeln, den `error`-State auf `true` setzen und den `weatherData`-State auf `null` zurücksetzen. |
+| **UT-03**    | **Netzwerkfehler:** Funktion `getWeatherData` bei einem simulierten Netzwerkfehler aufrufen. | Die Funktion sollte den Fehler abfangen und den `error`-State auf `true` setzen.                                                           |
+| **UT-04**    | **Datenformat:** Die zurückgegebenen Daten in `weatherData` auf Korrektheit prüfen.          | Überprüfen, ob die Datenfelder (`                                                                                                          |
