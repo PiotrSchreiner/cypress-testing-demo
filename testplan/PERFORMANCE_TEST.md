@@ -1,0 +1,8 @@
+# Performance- und Lasttests (PT)
+
+| Test Case-ID | Testbeschreibung                                                                                                         | Erwartetes Ergebnis                                                                                                                        |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **PT-01**    | **Anwendungsladezeit:** Die Zeit messen, die benötigt wird, um die Seite komplett zu laden.                              | Die Seite sollte innerhalb von **3 Sekunden** vollständig geladen sein, um eine gute UX zu gewährleisten.                                  |
+| **PT-02**    | **API-Latenz:** Die Zeit messen, die die App benötigt, um eine API-Anfrage zu senden und die Antwort zu verarbeiten.     | Die Wetterdaten sollten innerhalb von **2 Sekunden** nach dem Klick auf **"Suchen"** angezeigt werden.                                     |
+| **PT-03**    | **Simulierte langsame Verbindung:** Die App in einer simulierten 3G-Verbindung testen.                                   | Die App sollte funktionsfähig bleiben, eine Ladeanzeige (falls vorhanden) korrekt anzeigen und die API-Anfrage erfolgreich abschließen.    |
+| **PT-04**    | **Stresstest:** Eine große Anzahl von gleichzeitigen Anfragen an die API senden (z. B. **100 Anfragen in 10 Sekunden**). | Die App sollte nicht abstürzen oder einfrieren. Alle API-Antworten sollten korrekt verarbeitet werden, auch wenn sie verzögert eintreffen. |

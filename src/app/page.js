@@ -1,103 +1,95 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [city, setCity] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
+  const [error, setError] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const getWeatherData = async () => {
+    if (!city.trim()) {
+      setError(false);
+      setWeatherData(null);
+      return;
+    }
+
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.trim()}&appid=${API_KEY}&units=metric&lang=de`;
+
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error("Stadt nicht gefunden");
+      }
+      const data = await response.json();
+      setWeatherData(data);
+      setError(false);
+    } catch (err) {
+      setError(true);
+      setWeatherData(null);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      getWeatherData();
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="bg-blue-500 p-8 rounded-lg shadow-lg text-center w-full max-w-md">
+        <h1 className="text-3xl font-bold mb-6">Wetter-App</h1>
+        <div className="flex flex-col items-center gap-4 mb-6">
+          <input
+            type="text"
+            placeholder="Stadt eingeben"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            onKeyDown={handleKeyPress}
+            className="p-2 border border-gray-300 rounded-md w-full"
+            data-testid="city-input"
+          />
+          <button
+            onClick={getWeatherData}
+            className="bg-blue-500 text-black p-2 rounded-md hover:bg-blue-600 transition duration-300 w-full"
+            data-testid="search-button"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Suchen
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {weatherData && (
+          <div
+            className="bg-blue-200 p-4 text-gray-600 rounded-md mt-4"
+            data-testid="weather-info"
+          >
+            <h2 className="text-2xl font-semibold mb-2" data-testid="city-name">
+              {weatherData.name}
+            </h2>
+            <p className="text-lg" data-testid="temperature">
+              Temperatur: {Math.round(weatherData.main.temp)}°C
+            </p>
+            <p className="text-lg capitalize" data-testid="description">
+              Beschreibung: {weatherData.weather[0].description}
+            </p>
+            <p className="text-lg" data-testid="humidity">
+              Luftfeuchtigkeit: {weatherData.main.humidity}%
+            </p>
+          </div>
+        )}
+
+        {error && (
+          <div
+            className="text-red-500 font-bold mt-4"
+            data-testid="error-message"
+          >
+            <p>Stadt nicht gefunden. Bitte erneut versuchen.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
