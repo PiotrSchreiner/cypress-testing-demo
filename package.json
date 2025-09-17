@@ -19,6 +19,8 @@
     "cypress": "^15.2.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
+    "mochawesome": "^7.1.4",
+    "mochawesome-report-generator": "^6.3.0",
     "tailwindcss": "^4"
   }
 }
