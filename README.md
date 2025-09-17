@@ -13,7 +13,7 @@ Das Ziel dieses Projekts ist es, einen systematischen Ansatz für das Testen ein
 - **Tailwind CSS** – Für schnelles und modernes Styling
 - **Cypress** – Primäres End-to-End (E2E) und Integration Testing Framework
 
----
+--
 
 ## 🧪 Teststrategie
 
