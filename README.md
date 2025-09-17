@@ -36,6 +36,7 @@ Die Testfälle sind in verschiedene Kategorien unterteilt:
 - [Performance- und Lasttests](testplan/PERFORMANCE_TEST.md)
 - [Installation & Setup](#installation--setup)
 - [Tests ausführen](#tests-ausführen)
+- [Testberichte generieren](#testberichte-generieren)
 
 ---
 
@@ -70,14 +71,32 @@ Die Testfälle sind in verschiedene Kategorien unterteilt:
 
 ## 🔍 Tests ausführen
 
-1.  **Stelle sicher, dass der Entwicklungsserver läuft:**
+Um die Tests auszuführen, muss der Entwicklungsserver laufen.
+
+1.  **Server starten:**
 
     ```bash
     npm run dev
     ```
 
-2.  **Öffne Cypress:**
+2.  **Tests im Headless-Modus ausführen:**
+    Führe die Tests in deinem Terminal aus. Dies ist der Modus, der auch die Testberichte generiert.
     ```bash
-    npx cypress open
+    npx cypress run
     ```
-    Wähle im Cypress Test Runner die Option **"E2E Testing"**. Du kannst die Testdateien (`weather-app.cy.js`, `integration-tests.cy.js`, `performance-tests.cy.js`) nun einzeln oder alle zusammen ausführen.
+
+---
+
+## 📄 Testberichte generieren
+
+Nachdem die Tests mit `npx cypress run` abgeschlossen sind, werden die Ergebnisse als JSON-Datei in einem neuen Ordner namens `cypress/results` gespeichert.
+
+1.  **JSON-Bericht in HTML umwandeln:**
+    Um einen lesbaren, interaktiven HTML-Bericht zu erstellen, führe folgenden Befehl aus:
+
+    ```bash
+    npx mochawesome-report-generator cypress/results/*.json --output cypress/results/html --report-title "Wetter-App Testbericht"
+    ```
+
+2.  **Bericht öffnen:**
+    Den generierten Bericht findest du unter `cypress/results/html/mochawesome.html`. Öffne diese Datei in deinem Browser, um einen detaillierten Überblick über die Testergebnisse zu erhalten.
