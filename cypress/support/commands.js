@@ -1,25 +1,23 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// cypress/support/commands.js
+
+/**
+ * Custom Command, um nach einer bestimmten Stadt zu suchen,
+ * unter der Annahme, dass die Suchseite bereits geladen ist.
+ *
+ * @param {string} cityName - Der Name der Stadt, die gesucht werden soll.
+ */
+Cypress.Commands.add("searchForCity", (cityName) => {
+  // Best Practice: Element-Selektoren in Konstanten/Variablen speichern.
+  const SEARCH_INPUT = 'input[placeholder="Stadt eingeben"]';
+  const SEARCH_BUTTON = 'button:contains("Suchen")';
+
+  // Eingabefeld leeren, falls es Reste vom vorherigen Test gibt
+  cy.get(SEARCH_INPUT).clear();
+
+  // Stadt eingeben und auf den Such-Button klicken
+  cy.get(SEARCH_INPUT).type(cityName);
+  cy.get(SEARCH_BUTTON).click();
+});
+
+// HIER KÖNNTEN SPÄTER WEITERE CUSTOM COMMANDS FOLGEN, WENN NÖTIG
+// z.B. Cypress.Commands.add('login', (user) => { ... })
